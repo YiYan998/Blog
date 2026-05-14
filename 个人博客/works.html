@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>作品集 - 个人博客</title>
+    <link rel="stylesheet" href="css/common.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+        min-height: 100vh;
+        font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .header h1 {
+        font-size: 2.5rem;
+        color: #333;
+        margin-bottom: 1rem;
+      }
+
+      .header p {
+        color: #666;
+        font-size: 1.1rem;
+      }
+
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        color: #333;
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        background: white;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .back-btn:hover {
+        transform: translateX(-5px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      .works-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .work-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        transition: all 0.4s ease;
+        cursor: pointer;
+      }
+
+      .work-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+      }
+
+      .work-image {
+        width: 100%;
+        height: 200px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .work-image i {
+        font-size: 4rem;
+        color: white;
+        opacity: 0.9;
+      }
+
+      .work-image::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      .work-card:hover .work-image::before {
+        left: 100%;
+      }
+
+      .work-content {
+        padding: 1.5rem;
+      }
+
+      .work-content h3 {
+        color: #333;
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .work-content p {
+        color: #666;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+
+      .work-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .tag {
+        padding: 0.3rem 0.8rem;
+        background: #f0f0f0;
+        color: #666;
+        border-radius: 15px;
+        font-size: 0.85rem;
+        transition: all 0.3s ease;
+      }
+
+      .work-card:hover .tag {
+        background: #667eea;
+        color: white;
+      }
+
+      .work-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        background: #f8f9fa;
+        border-top: 1px solid #eee;
+      }
+
+      .work-date {
+        color: #999;
+        font-size: 0.9rem;
+      }
+
+      .work-link {
+        color: #667eea;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .work-link:hover {
+        color: #764ba2;
+      }
+
+      .filter-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .filter-tab {
+        padding: 0.6rem 1.5rem;
+        background: white;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        color: #666;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .filter-tab:hover,
+      .filter-tab.active {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .works-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .filter-tabs {
+          gap: 0.5rem;
+        }
+
+        .filter-tab {
+          padding: 0.5rem 1rem;
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="main.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> 返回首页
+      </a>
+
+      <div class="header">
+        <h1><i class="fas fa-briefcase"></i> 我的作品集</h1>
+        <p>记录成长路上的每一个作品，见证自己的进步</p>
+      </div>
+
+      <div class="filter-tabs">
+        <button class="filter-tab active">全部</button>
+        <button class="filter-tab">网页设计</button>
+        <button class="filter-tab">交互项目</button>
+        <button class="filter-tab">练习项目</button>
+      </div>
+
+      <div class="works-grid">
+        <div class="work-card">
+          <div
+            class="work-image"
+            style="
+              background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            "
+          >
+            <i class="fas fa-blog"></i>
+          </div>
+          <div class="work-content">
+            <h3>个人博客系统</h3>
+            <p>
+              使用HTML、CSS和JavaScript构建的响应式个人博客，包含文章展示、照片墙和留言板功能。
+            </p>
+            <div class="work-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+            </div>
+          </div>
+          <div class="work-meta">
+            <span class="work-date"
+              ><i class="far fa-calendar"></i> 2024年4月</span
+            >
+            <span class="work-link"
+              >查看详情 <i class="fas fa-arrow-right"></i
+            ></span>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <div
+            class="work-image"
+            style="
+              background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            "
+          >
+            <i class="fas fa-images"></i>
+          </div>
+          <div class="work-content">
+            <h3>照片展示网页</h3>
+            <p>
+              具有现代化卡片布局和灯箱预览功能的照片展示页面，支持响应式设计和触摸滑动。
+            </p>
+            <div class="work-tags">
+              <span class="tag">CSS Grid</span>
+              <span class="tag">动画效果</span>
+              <span class="tag">响应式</span>
+            </div>
+          </div>
+          <div class="work-meta">
+            <span class="work-date"
+              ><i class="far fa-calendar"></i> 2024年3月</span
+            >
+            <span class="work-link"
+              >查看详情 <i class="fas fa-arrow-right"></i
+            ></span>
+          </div>
+        </div>
+
+        <div class="work-card">
+          <div
+            class="work-image"
+            style="
+              background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            "
+          >
+            <i class="fas fa-calculator"></i>
+          </div>
+          <div class="work-content">
+            <h3>计算器应用</h3>
+            <p>
+              使用原生JavaScript开发的实用计算器，支持基本运算和键盘输入，界面美观大方。
+            </p>
+            <div class="work-tags">
+              <span class="tag">JavaScript</span>
+              <span class="tag">DOM操作</span>
+              <span class="tag">键盘事件</span>
+            </div>
+          </div>
+          <div class="work-meta">
+            <span class="work-date"
+              ><i class="far fa-calendar"></i> 2024年2月</span
+            >
+            <span class="work-link"
+              >查看详情 <i class="fas fa-arrow-right"></i
+            ></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.querySelectorAll(".filter-tab").forEach((tab) => {
+        tab.addEventListener("click", function () {
+          document
+            .querySelectorAll(".filter-tab")
+            .forEach((t) => t.classList.remove("active"));
+          this.classList.add("active");
+        });
+      });
+    </script>
+  </body>
+</html>

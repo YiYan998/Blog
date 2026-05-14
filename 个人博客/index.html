@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>翌颜的个人博客 - 首页</title>
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/main.CSS" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <nav id="nav">
+      <div class="nav-container">
+        <div class="logo">
+          <i class="fas fa-star"></i>
+          <span>个人博客</span>
+        </div>
+        <div class="menu-toggle">
+          <i class="fas fa-bars"></i>
+        </div>
+        <div class="nav-list">
+          <a href="main.html" class="active"
+            ><i class="fas fa-home"></i> 主页</a
+          >
+          <a href="留言板.html"><i class="fas fa-comment"></i> 留言板</a>
+          <a href="about.html"><i class="fas fa-user"></i> 关于我</a>
+          <a href="center.html"><i class="fas fa-user-circle"></i> 个人中心</a>
+          <a href="works.html"><i class="fas fa-briefcase"></i> 作品集</a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="main">
+      <div class="hero-section">
+        <div class="hero-content">
+          <div class="img_box">
+            <img src="imgs/对饮.jpg" alt="个人头像" />
+            <div class="status-badge"><i class="fas fa-circle"></i> 在线</div>
+          </div>
+          <div class="profile-info">
+            <h1>欢迎来到我的博客</h1>
+            <p class="subtitle">翌颜 - 记录你我，分享技术与生活</p>
+            <div class="social-links">
+              <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
+              <a href="#" title="CSDN"><i class="fas fa-book"></i></a>
+              <a href="#" title="邮箱"><i class="fas fa-envelope"></i></a>
+              <a href="#" title="QQ"><i class="fab fa-qq"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-wrapper">
+        <section class="quick-links">
+          <div class="link-card">
+            <a href="照片.html">
+              <i class="fas fa-image"></i>
+              <span>我的相册</span>
+              <small>5 张照片</small>
+            </a>
+          </div>
+          <div class="link-card">
+            <a href="留言板.html">
+              <i class="fas fa-comment-dots"></i>
+              <span>留言交流</span>
+              <small>欢迎互动</small>
+            </a>
+          </div>
+          <div class="link-card">
+            <a href="works.html">
+              <i class="fas fa-briefcase"></i>
+              <span>作品展示</span>
+              <small>3 个作品</small>
+            </a>
+          </div>
+          <div class="link-card">
+            <a href="center.html">
+              <i class="fas fa-user-circle"></i>
+              <span>个人中心</span>
+              <small>查看详情</small>
+            </a>
+          </div>
+        </section>
+
+        <section class="articles-section">
+          <h2 class="section-title"><i class="fas fa-pen"></i> 学习感悟</h2>
+          <div class="articles-grid">
+            <article class="article-card">
+              <div class="article-icon">
+                <i class="fab fa-html5"></i>
+              </div>
+              <div class="article-content">
+                <h3>HTML感悟</h3>
+                <p>
+                  HTML作为网页结构化呈现的基础，核心价值在于语义化与结构规范性。初期易陷入仅关注标签形式嵌套的误区，忽视header、section、p等标签的语义属性，导致页面结构混乱、可读性与可维护性差。实操中需精准匹配标签与内容逻辑，严格遵循标签闭合规则，边编写边调试预览，确保层级清晰。
+                </p>
+                <div class="article-meta">
+                  <span><i class="far fa-calendar"></i> 2024-04-15</span>
+                  <span><i class="far fa-eye"></i> 128 浏览</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="article-card">
+              <div
+                class="article-icon"
+                style="
+                  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                "
+              >
+                <i class="fab fa-css3-alt"></i>
+              </div>
+              <div class="article-content">
+                <h3>CSS感悟</h3>
+                <p>
+                  CSS作为网页样式实现的核心，关键在于样式与结构的解耦、选择器的规范使用及层叠逻辑的把控。初期易陷入样式堆砌的误区，滥用ID选择器或行内样式，导致样式冲突、复用性差，后期维护成本高。
+                </p>
+                <div class="article-meta">
+                  <span><i class="far fa-calendar"></i> 2024-04-10</span>
+                  <span><i class="far fa-eye"></i> 96 浏览</span>
+                </div>
+              </div>
+            </article>
+
+            <article class="article-card">
+              <div
+                class="article-icon"
+                style="
+                  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+                "
+              >
+                <i class="fab fa-js"></i>
+              </div>
+              <div class="article-content">
+                <h3>JavaScript感悟</h3>
+                <p>
+                  JavaScript作为网页交互逻辑的核心，关键在于逻辑闭环的完整性与代码的可维护性。初期易陷入仅关注语法实现的误区，忽视变量作用域、事件触发时机等细节，导致交互行为异常、代码难以调试。
+                </p>
+                <div class="article-meta">
+                  <span><i class="far fa-calendar"></i> 2024-04-05</span>
+                  <span><i class="far fa-eye"></i> 156 浏览</span>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <p>© 2024 翌颜的个人博客 | 用心记录每一天</p>
+    </footer>
+
+    <script>
+      document
+        .querySelector(".menu-toggle")
+        .addEventListener("click", function () {
+          document.querySelector(".nav-list").classList.toggle("active");
+        });
+
+      document.querySelectorAll(".nav-list a").forEach((link) => {
+        if (link.href === window.location.href) {
+          link.classList.add("active");
+        }
+      });
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = "1";
+              entry.target.style.transform = "translateY(0)";
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+
+      document.querySelectorAll(".article-card, .link-card").forEach((card) => {
+        card.style.opacity = "0";
+        card.style.transform = "translateY(20px)";
+        card.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+        observer.observe(card);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>留言板 - 个人博客</title>
+    <link rel="stylesheet" href="css/common.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+        min-height: 100vh;
+        font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        padding: 2rem 1rem;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .header h1 {
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 0.5rem;
+      }
+
+      .header p {
+        color: #666;
+        font-size: 1rem;
+      }
+
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        color: #333;
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        background: white;
+        border-radius: 25px;
+        transition: all 0.3s ease;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .back-btn:hover {
+        transform: translateX(-5px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      .message-form {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2rem;
+      }
+
+      .message-form h2 {
+        color: #333;
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .message-form h2 i {
+        color: #667eea;
+      }
+
+      .input-group {
+        margin-bottom: 1rem;
+      }
+
+      .input-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #666;
+        font-size: 0.95rem;
+      }
+
+      .input-group input {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: 2px solid #e8e8e8;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: border-color 0.3s ease;
+      }
+
+      .input-group input:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      textarea {
+        width: 100%;
+        height: 150px;
+        padding: 1rem;
+        border: 2px solid #e8e8e8;
+        border-radius: 10px;
+        resize: none;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        transition: border-color 0.3s ease;
+        font-family: inherit;
+      }
+
+      textarea:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 1rem;
+        justify-content: flex-end;
+      }
+
+      .btn {
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .submit-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+      }
+
+      .clear-btn {
+        background: #f8f9fa;
+        color: #666;
+        border: 2px solid #e8e8e8;
+      }
+
+      .clear-btn:hover {
+        background: #fee;
+        border-color: #ff6b6b;
+        color: #ff6b6b;
+      }
+
+      .messages-section {
+        margin-top: 3rem;
+      }
+
+      .messages-section h2 {
+        color: #333;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .messages-section h2 i {
+        color: #667eea;
+      }
+
+      .messages-count {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 0.2rem 0.6rem;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        margin-left: 0.5rem;
+      }
+
+      .message-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .message-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        animation: fadeIn 0.4s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .message-card:hover {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .message-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .message-author {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .author-avatar {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
+
+      .author-name {
+        color: #333;
+        font-weight: 600;
+      }
+
+      .message-time {
+        color: #999;
+        font-size: 0.85rem;
+      }
+
+      .message-content {
+        color: #666;
+        line-height: 1.8;
+        font-size: 0.95rem;
+      }
+
+      .message-actions {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .delete-btn {
+        padding: 0.4rem 0.8rem;
+        background: transparent;
+        color: #999;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        transition: all 0.3s ease;
+      }
+
+      .delete-btn:hover {
+        background: #fee;
+        color: #ff6b6b;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 3rem;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      }
+
+      .empty-state i {
+        font-size: 4rem;
+        color: #ddd;
+        margin-bottom: 1rem;
+      }
+
+      .empty-state p {
+        color: #999;
+        font-size: 1.1rem;
+      }
+
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 1.5rem;
+        }
+
+        .message-form {
+          padding: 1.5rem;
+        }
+
+        .btn-group {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .message-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.5rem;
+        }
+
+        textarea {
+          height: 120px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="main.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> 返回首页
+      </a>
+
+      <div class="header">
+        <h1><i class="fas fa-comment-dots"></i> 留言板</h1>
+        <p>记录你的想法，与博主互动交流</p>
+      </div>
+
+      <div class="message-form">
+        <h2><i class="fas fa-pen"></i> 撰写留言</h2>
+        <div class="input-group">
+          <label for="nameInput">你的昵称</label>
+          <input type="text" id="nameInput" placeholder="请输入你的昵称" />
+        </div>
+        <textarea id="messageInput" placeholder="请输入你的留言..."></textarea>
+        <div class="btn-group">
+          <button class="btn clear-btn" id="clearBtn">
+            <i class="fas fa-trash-alt"></i> 清空
+          </button>
+          <button class="btn submit-btn" id="submitBtn">
+            <i class="fas fa-paper-plane"></i> 提交留言
+          </button>
+        </div>
+      </div>
+
+      <div class="messages-section">
+        <h2>
+          <i class="fas fa-comments"></i> 留言列表
+          <span class="messages-count" id="messagesCount">0</span>
+        </h2>
+        <div class="message-list" id="messageList"></div>
+      </div>
+    </div>
+
+    <script>
+      const submitBtn = document.getElementById("submitBtn");
+      const clearBtn = document.getElementById("clearBtn");
+      const messageInput = document.getElementById("messageInput");
+      const nameInput = document.getElementById("nameInput");
+      const messageList = document.getElementById("messageList");
+      const messagesCount = document.getElementById("messagesCount");
+
+      function loadMessages() {
+        const messages = JSON.parse(
+          localStorage.getItem("blogMessages") || "[]",
+        );
+        messagesCount.textContent = messages.length;
+
+        if (messages.length === 0) {
+          messageList.innerHTML = `
+            <div class="empty-state">
+              <i class="far fa-comment-dots"></i>
+              <p>暂无留言，快来抢占沙发吧！</p>
+            </div>
+          `;
+          return;
+        }
+
+        messageList.innerHTML = messages
+          .map(
+            (msg, index) => `
+          <div class="message-card" data-index="${index}">
+            <div class="message-header">
+              <div class="message-author">
+                <div class="author-avatar">${msg.name.charAt(0).toUpperCase()}</div>
+                <span class="author-name">${escapeHtml(msg.name)}</span>
+              </div>
+              <span class="message-time"><i class="far fa-clock"></i> ${msg.time}</span>
+            </div>
+            <div class="message-content">${escapeHtml(msg.content)}</div>
+            <div class="message-actions">
+              <button class="delete-btn" onclick="deleteMessage(${index})">
+                <i class="fas fa-trash-alt"></i> 删除
+              </button>
+            </div>
+          </div>
+        `,
+          )
+          .join("");
+      }
+
+      function escapeHtml(text) {
+        const div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      function submitMessage() {
+        const name = nameInput.value.trim() || "匿名用户";
+        const content = messageInput.value.trim();
+
+        if (!content) {
+          alert("请输入留言内容！");
+          messageInput.focus();
+          return;
+        }
+
+        const messages = JSON.parse(
+          localStorage.getItem("blogMessages") || "[]",
+        );
+        messages.unshift({
+          name: name,
+          content: content,
+          time: new Date().toLocaleString("zh-CN"),
+        });
+
+        localStorage.setItem("blogMessages", JSON.stringify(messages));
+        messageInput.value = "";
+        nameInput.value = "";
+        loadMessages();
+      }
+
+      window.deleteMessage = function (index) {
+        if (!confirm("确定要删除这条留言吗？")) return;
+
+        const messages = JSON.parse(
+          localStorage.getItem("blogMessages") || "[]",
+        );
+        messages.splice(index, 1);
+        localStorage.setItem("blogMessages", JSON.stringify(messages));
+        loadMessages();
+      };
+
+      submitBtn.addEventListener("click", submitMessage);
+
+      clearBtn.addEventListener("click", function () {
+        if (messageInput.value || nameInput.value) {
+          if (confirm("确定要清空输入框吗？")) {
+            messageInput.value = "";
+            nameInput.value = "";
+          }
+        }
+      });
+
+      messageInput.addEventListener("keydown", function (e) {
+        if (e.ctrlKey && e.key === "Enter") {
+          submitMessage();
+        }
+      });
+
+      loadMessages();
+    </script>
+  </body>
+</html>
